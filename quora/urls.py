@@ -15,15 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from app.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', anasayfa),
-    url(r'^login/$', giris),
-    url(r'^logout/$', cikis),
-    url(r'^newquestion/$', yeni_soru),
-    url(r'^question/(?P<number>[-\w]+)/$', soru_sayfasi),
-    url(r'^qud/(?P<updown>[-\w]+)/(?P<number>[-\w]+)/$', question_up),
-    
 ]

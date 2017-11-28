@@ -1,0 +1,15 @@
+{% if request.user.is_authenticated %}
+<h5>Hoş Geldiniz {{request.user}}</h5>
+<h2><a href="/logout">Sistemden Çıkış</a></h2> 
+<h2><a href="/newquestion">Yeni Soru</a></h2>
+
+{% else %} 
+<h2><a href="/login">Üye Girişi</a></h2>
+{% endif %}
+
+<h2>Güncel Sorular</h2>
+
+{% for i in questions %}
+    <a href="/question/{{i.id}}">{{i.title}}</a>
+    
+{% endfor %}
