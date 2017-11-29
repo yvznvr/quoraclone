@@ -92,3 +92,21 @@ def answer_up(request, updown ,number):
                 temp.up_down = updown
                 temp.save()
     return HttpResponseRedirect("/question/{}".format(answer.question_id.id))
+
+
+def reply(request, number, sub):
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            temiz = form.cleaned_data
+            qid = Questions.objects.get(id=number)
+            data = Answers(context=temiz['context'], user_id=request.user, question_id=qid)
+            data.save()
+            if int(sub):
+                ans = Answers.objects.get(id=sub)
+                sub_ans = SubAnswers(answer_id=ans, subanswer_id=data)
+                sub_ans.save()
+            return HttpResponseRedirect("/question/{}".format(number))
+    else:
+        form = AnswerForm()
+        return render(request, 'answer.html', locals())

@@ -13,9 +13,12 @@
     <p>{{ans|updown_ans:1}} Adet up, {{ans|updown_ans:0}} adet down var</p>
     <a href="/aud/1/{{ans.id}}">Up</a>
     <a href="/aud/0/{{ans.id}}">Down</a>
+    <a href="/newanswer/{{question.id}}/{{ans.id}}">Cevapla</a>
     {% for j in sub_ans %}
         <li>{{j|safe}} <b>{{j.subanswer_id.user_id}}</b></li>
     {% endfor %}
     <br><br>
 {% endfor %}
 </ul>
+
+<a href="/newanswer/{{question.id}}/0">Cevapla</a>

@@ -1,0 +1,10 @@
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<form method="post">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}        
+    </table>
+    <input type="submit" value="Onayla">
+</form>
