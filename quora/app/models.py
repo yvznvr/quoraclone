@@ -49,3 +49,6 @@ class SubAnswers(models.Model):
 
     class Meta:
         verbose_name_plural = "Alt Cevaplar"
+    
+    def __str__(self):
+        return self.subanswer_id.context

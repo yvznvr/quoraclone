@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^newquestion/$', yeni_soru),
     url(r'^question/(?P<number>[-\w]+)/$', soru_sayfasi),
     url(r'^qud/(?P<updown>[-\w]+)/(?P<number>[-\w]+)/$', question_up),
+    url(r'^aud/(?P<updown>[-\w]+)/(?P<number>[-\w]+)/$', answer_up),
     
 ]

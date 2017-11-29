@@ -1,4 +1,21 @@
-{{question.title}}
+{% load filters %}
+
+<h4>{{question.user_id}}</h4>
+<p>{{question.title}}</p>
 <p>{{up}} Adet up, {{down}} adet down var</p>
 <a href="/qud/1/{{question.id}}">Up</a>
 <a href="/qud/0/{{question.id}}">Down</a>
+
+<h4>Cevaplar</h4>
+<ul>
+{% for ans, sub_ans in ans_list.items %}
+    <li><b>{{ans|safe}} {{ans.user_id}} </b></li>
+    <p>{{ans|updown_ans:1}} Adet up, {{ans|updown_ans:0}} adet down var</p>
+    <a href="/aud/1/{{ans.id}}">Up</a>
+    <a href="/aud/0/{{ans.id}}">Down</a>
+    {% for j in sub_ans %}
+        <li>{{j|safe}} <b>{{j.subanswer_id.user_id}}</b></li>
+    {% endfor %}
+    <br><br>
+{% endfor %}
+</ul>
