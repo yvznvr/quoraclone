@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import Questions, UpDownVotesQuestion, UpDownVotesAnswer, Answers, SubAnswers
@@ -94,6 +95,7 @@ def answer_up(request, updown ,number):
     return HttpResponseRedirect("/question/{}".format(answer.question_id.id))
 
 
+@login_required
 def reply(request, number, sub):
     if request.method == 'POST':
         form = AnswerForm(request.POST)
@@ -110,3 +112,19 @@ def reply(request, number, sub):
     else:
         form = AnswerForm()
         return render(request, 'answer.html', locals())
+
+
+def sign(request):
+    if request.method == 'POST':
+        form = SignForm(request.POST)
+        if form.is_valid():
+            temiz = form.cleaned_data
+            user = User.objects.create_user(username=temiz['username'],
+                                            email=temiz['mail'],
+                                            password=temiz['password'])
+            user.save()
+            login(request,user)
+            return HttpResponseRedirect('/')
+    else:
+        form = SignForm()
+        return render(request, 'new-account.html', locals())

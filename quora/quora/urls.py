@@ -20,6 +20,7 @@ from app.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', anasayfa),
+    url(r'^new-account/$', sign),    
     url(r'^login/$', giris),
     url(r'^logout/$', cikis),
     url(r'^newquestion/$', yeni_soru),

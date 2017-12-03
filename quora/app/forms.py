@@ -15,3 +15,11 @@ class NewQuestion(forms.ModelForm):
 
 class AnswerForm(forms.Form):
     context = forms.CharField(widget=CKEditorWidget)
+
+
+class SignForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
+    mail = forms.CharField(widget=forms.EmailInput)
+
+    
