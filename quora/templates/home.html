@@ -1,16 +1,49 @@
+{% extends 'base.html' %}
+{% load filters %}
+
+{% block session %}
 {% if request.user.is_authenticated %}
-<h5>Hoş Geldiniz {{request.user}}</h5>
-<h2><a href="/logout">Sistemden Çıkış</a></h2> 
-<h2><a href="/newquestion">Yeni Soru</a></h2>
+<li class="navbar-right nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">{{request.user}}</a>
 
-{% else %} 
-<h2><a href="/login">Üye Girişi</a></h2>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="/newquestion">Yeni Soru</a>
+        <a class="dropdown-item" href="#">Ayarlar</a>
+        <a class="dropdown-item" href="/logout">Sistemden Çıkış</a>
+    </div>
+</li>
+
+{% else %}
+<a class="navbar-brand" href="/new-account">Üye Ol</a>
+<a class="navbar-brand" href="/login">Üye Girişi</a>
 {% endif %}
+{% endblock %}
 
-<h2>Güncel Sorular</h2>
-
-{% for i in questions %}
-    <a href="/question/{{i.id}}">{{i.title}}</a>
-    <br>
-    
-{% endfor %}
+{% block content %}
+<div class="container">
+	<h2 class="spacer">Güncel Sorular</h2>
+	{% for i in questions %}
+		<div class="card" >
+			<div class="card-header ">
+				<a href="/question/{{i.id}}">{{i.title}}</a>
+				</div>
+					<div class=row>
+						<div class="col-md-1">
+							<img src="http://placehold.it/50x50" width="50" height="50"
+							<p class="text-center small">
+						</div>
+						<div class="col-md-5">
+							<p>{{i.user_id.first_name}} {{i.user_id.last_name}}</p>                            
+                            <p>{{i.user_id}}</p>
+							<p class=text-muted small>
+						</div>
+						<div class="col-md-12">
+							<p>Etiketler:</p>
+							<p class="float-right">{{i|updown_question:0}} Down<span class="glyphicon glyphicon-triangle-bottom"></span></p>
+							<p class="float-right">{{i|updown_question:1}} Up<span class="glyphicon glyphicon-triangle-top"></span></p>	
+						</div>
+					</div>
+        </div>
+    {% endfor %}
+	</div>
+{% endblock %}

@@ -31,6 +31,7 @@ def cikis(request):
 
 def anasayfa(request):
     questions = Questions.objects.all()
+    up_down = UpDownVotesQuestion.objects.all()
     return render(request,"home.html", locals())
 
 @login_required
@@ -44,6 +45,7 @@ def yeni_soru(request):
             return HttpResponseRedirect('/')
     else:
         form = NewQuestion()
+        tags = Tags.objects.all()
         return render(request, 'newquestion.html', locals())
 
 
@@ -63,6 +65,7 @@ def soru_sayfasi(request, number):
     return render(request, 'question.html', locals())
 
 
+@login_required
 def question_up(request, updown ,number):
     question = Questions.objects.get(id=number)
     if request.user.is_authenticated == False:
@@ -79,6 +82,7 @@ def question_up(request, updown ,number):
     return HttpResponseRedirect("/question/{}".format(number))
 
 
+@login_required
 def answer_up(request, updown ,number):
     answer = Answers.objects.get(id=number)    
     if request.user.is_authenticated == False:

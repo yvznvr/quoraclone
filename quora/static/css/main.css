@@ -1,0 +1,59 @@
+.navbar{
+	margin: 8px 0px 50px 0px;
+}
+.profil1{
+	margin: 10px 10px 20px 50px;
+}
+.profil2{
+
+   margin: 30px 0px 20px 0px;
+
+}
+
+footer{
+  color: white;
+}
+
+.footer-bottom{
+  background: #3d6277;
+  padding: 2em;
+  font-size: 10px;
+  
+}
+.footer-middle{
+  background: #3d6277;
+  padding-top: 2em;
+  color: white;
+  margin: 350px 0px 2px 0px;
+   font-size: 8px;
+ 
+}
+
+.image{
+margin: 10px 10px;
+}
+
+.card{
+margin: 10px 10px ;
+}
+
+
+/**
+
+button{
+	margin:20px 5px 60px;
+}
+h2{
+	color:red;
+}
+.navbar-nav{
+	margin: 5px 0px 20px 0px;
+}
+.arama_kutusu{
+  position: absolute;
+  left: 800px;
+  top:20px;
+  font-size:25px;
+  box-shadow:0 0 4px rgba(0,77,64,0.4);
+ 
+}

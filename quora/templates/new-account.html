@@ -1,7 +1,52 @@
+{% extends 'base.html' %}
+
+{% block session %}
+{% if request.user.is_authenticated %}
+<li class="navbar-right nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">{{request.user}}</a>
+
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="/newquestion">Yeni Soru</a>
+        <a class="dropdown-item" href="#">Ayarlar</a>
+        <a class="dropdown-item" href="/logout">Sistemden Çıkış</a>
+    </div>
+</li>
+
+{% else %}
+<a class="navbar-brand" href="/new-account">Üye Ol</a>
+<a class="navbar-brand" href="/login">Üye Girişi</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
-    <table>
-        {{form.as_table}}        
-    </table>
-    <input type="submit" value="Onayla">
+    <div class="container">
+            <h2>New Account</h2>
+            <div class="form-group">
+                <label for="email">Username:</label>
+                <input name="username" class="form-control" id="id_username" required="" type="text">
+                <span class="help-block">Choose a username for your new account.</span>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input name="password" class="form-control" id="id_password" required="" type="password">
+                <span class="help-block">Choose a password for your new account.</span>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Email:</label>
+                <input name="mail" class="form-control" id="id_mail" required="" type="email">
+                <span class="help-block">Choose a mail for your new account.</span>
+            </div>
+                    
+                    
+            <div class="modal-footer">
+                <input type="hidden" name="isEmpty" value="">
+                <button type="input" name="submit" value="newAccount" class="btn btn-success btn-icon"> Create My Account</button>
+            </div>           
+    </div>
 </form>
+
+
+
+{% endblock %}

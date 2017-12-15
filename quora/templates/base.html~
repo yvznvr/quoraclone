@@ -1,0 +1,130 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en"> 
+  
+   <head>
+
+    {% block title %}
+    {% endblock %}	
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<!-- kendi css dosyam -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/> 
+ 
+	</head>
+  
+  <body>
+
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<a class="navbar-brand" href="#">QuoraClone</a>
+  
+		<form class="form-inline" action="/action_page.php">
+			<input class="form-control" type="text" placeholder="Search">
+			<button class="btn btn-success" type="submit">Search</button>
+		</form>
+
+		<!-- Links -->
+	<ul class="navbar-nav">
+	
+		
+		<!-- Dropdown -->
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> Bildirimler</a>
+      
+		<div class="dropdown-menu">
+			{% block bildirim %}
+			{% endblock %}
+			<a class="dropdown-item" href="#">Link 1</a>
+			<a class="dropdown-item" href="#">Link 2</a>
+			<a class="dropdown-item" href="#">Link 3</a>
+		</div>
+		</li>	
+		
+	 </ul>
+			
+		<ul class="navbar-nav ml-auto">
+			<li class="navbar-right nav-item dropdown">
+				{% block session %}
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> Kullanıcı Adı</a>
+      
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="#">login</a>
+					<a class="dropdown-item" href="#">settings</a>
+					<a class="dropdown-item" href="#">logout</a>
+				</div>
+				{% endblock %}
+			</li>
+		</ul>
+	 
+  </nav>
+
+{% block content %}
+{% endblock %}
+	
+<footer class="mainfooter" role="contentinfo">
+  <div class="footer-middle">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+          <h6>Ad</h6>
+			<ul class="list-unstyled">
+				<li>
+                    Hakan Murat<br>
+					Yavuz<br>
+					Onur<br>
+				</li>
+				
+			</ul>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+          <h6>Soyad</h6>
+          <ul class="list-unstyled">
+      
+            <li>Aksüt</li>
+            <li>Ünver</li>
+            <li>Çevik</li>
+          </ul>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+          <h6>Numara</h6>
+          <ul class="list-unstyled">
+            <li>313979</li>
+            <li>333333</li>
+            <li>333333</li>
+          </ul>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+          <h6>Öğrenim</h6>
+          <ul class="list-unstyled">
+            <li>1.öğretim</li>
+            <li>1.öğretim</li>
+            <li>1.öğretim</li>
+          </ul>  
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <!--Footer Bottom-->
+          <p class="text-xs-center">Veritabanı Yönetim Sistemleri 2017-2018 Dönem Ödevi - Yrd.Doç.Dr.Güzin Ulutaş</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

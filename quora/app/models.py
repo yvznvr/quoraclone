@@ -7,12 +7,14 @@ from django.contrib.auth.models import User
 class Questions(models.Model):
     title = models.CharField(verbose_name="Sorunuz", max_length=250)
     user_id = models.ForeignKey(User)
+    tags = models.ManyToManyField('Tags')
 
     class Meta:
         verbose_name_plural = "Sorular"
 
     def __str__(self):
         return self.title
+
 
 class Answers(models.Model):
     context = RichTextField()
@@ -25,6 +27,7 @@ class Answers(models.Model):
 
     def __str__(self):
         return self.context
+
 
 class UpDownVotesAnswer(models.Model):
     up_down = models.BooleanField()
@@ -43,6 +46,7 @@ class UpDownVotesQuestion(models.Model):
     class Meta:
         verbose_name_plural = "UpDown Sorular"
 
+
 class SubAnswers(models.Model):
     answer_id = models.ForeignKey(Answers, related_name="realAnswer")
     subanswer_id = models.ForeignKey(Answers, related_name="subAnswer")
@@ -52,3 +56,10 @@ class SubAnswers(models.Model):
     
     def __str__(self):
         return self.subanswer_id.context
+
+
+class Tags(models.Model):
+    tag = models.SlugField(max_length=25)
+
+    def __str__(self):
+        return self.tag

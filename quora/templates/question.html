@@ -1,26 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
 {% load filters %}
 
-<h4>{{question.user_id}}</h4>
-<p>{{question.title}}</p>
-<p>{{up}} Adet up, {{down}} adet down var</p>
-<a href="/qud/1/{{question.id}}">Up</a>
-<a href="/qud/0/{{question.id}}">Down</a>
+{% block session %}
+{% if request.user.is_authenticated %}
+<li class="navbar-right nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">{{request.user}}</a>
 
-<h4>Cevaplar</h4>
-<ul>
-{% for ans, sub_ans in ans_list.items %}
-    <li><b>{{ans|safe}} {{ans.user_id}} </b></li>
-    <p>{{ans|updown_ans:1}} Adet up, {{ans|updown_ans:0}} adet down var</p>
-    <a href="/aud/1/{{ans.id}}">Up</a>
-    <a href="/aud/0/{{ans.id}}">Down</a>
-    {% if request.user.is_authenticated %}    
-    <a href="/newanswer/{{question.id}}/{{ans.id}}">Cevapla</a>
-    {% endif %}
-    {% for j in sub_ans %}
-        <li>{{j|safe}} <b>{{j.subanswer_id.user_id}}</b></li>
-    {% endfor %}
-    <br><br>
-{% endfor %}
-</ul>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="/newquestion">Yeni Soru</a>
+        <a class="dropdown-item" href="#">Ayarlar</a>
+        <a class="dropdown-item" href="/logout">Sistemden Çıkış</a>
+    </div>
+</li>
 
-<a href="/newanswer/{{question.id}}/0">Cevapla</a>
+{% else %}
+<a class="navbar-brand" href="/new-account">Üye Ol</a>
+<a class="navbar-brand" href="/login">Üye Girişi</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card" >
+
+        <div class="card-header ">
+        <h2>{{question.title}}</h2>
+        </div>
+        
+        <div class="card-block">
+
+            <div class=media>
+            <img src="http://placehold.it/50x50" class="image" width="50" height="50">
+            </div>
+            
+            <div class="media-body">
+                    <p>{{question.user_id.first_name}} {{question.user_id.last_name}}</p>
+                    <p><b>Username </b>{{question.user_id}}</p>
+                    <p class=text-muted small>
+                    <span>Puan</span></p>
+                    <p>Etiketler: 
+                    {% if request.user.is_authenticated %}    
+                    <span class="float-right">{{down}} <a href="/qud/0/{{question.id}}">Down</a> {{up}} <a href="/qud/1/{{question.id}}">Up</a> </span></p>
+                    <a href="/newanswer/{{question.id}}/0">Cevapla</a>
+                    {% endif %}
+
+                    {% for ans, sub_ans in ans_list.items %}
+                    <div class="card">
+                        <div class=media>
+                        <img src="http://placehold.it/50x50" class="image" width="50" height="50">
+                        </div>
+                        <div class="media-body">
+                            <p>{{ans.user_id.first_name}} {{ans.user_id.last_name}}</p>                                
+                            <p>{{ans.user_id}}</p>
+                            <p>{{ans|safe}}</p>
+                            <p class=text-muted small>
+                            <span>Puan</span></p>
+                            {% if request.user.is_authenticated %}            
+                            <span class="float-right">{{ans|updown_ans:0}} <a href="/aud/0/{{ans.id}}">Down</a> {{ans|updown_ans:1}} <a href="/aud/1/{{ans.id}}">Up</a></span></p>
+                            <a href="/newanswer/{{question.id}}/{{ans.id}}">Cevapla</a>
+                            {%endif%}
+                            
+                            {% for j in sub_ans %}
+                            <div class="card">
+                                <div class=media>
+                                <img src="http://placehold.it/50x50" class="image" width="50" height="50">
+                                </div>
+                            
+                            
+                                <div class="media-body">
+                                <p>{{j.subanswer_id.user_id.first_name}} {{j.subanswer_id.user_id.last_name}}</p>                                
+                                <p>{{j.subanswer_id.user_id}}</p>
+                                <p>{{j|safe}}</p>
+                                <p class=text-muted small>
+                                <span>Puan</span></p>
+                    
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+                            
+                            
+    </div>
+		
+</div>
+
+{% endblock %}

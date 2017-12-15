@@ -1,5 +1,5 @@
 from django import forms
-from .models import Questions
+from .models import Questions, Tags
 from ckeditor.widgets import CKEditorWidget
 
 class LoginForm(forms.Form):
@@ -10,7 +10,7 @@ class LoginForm(forms.Form):
 class NewQuestion(forms.ModelForm):
     class Meta:
         model = Questions
-        exclude = ['user_id']
+        exclude = ['user_id', 'tags']
 
 
 class AnswerForm(forms.Form):
