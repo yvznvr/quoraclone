@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .forms import *
 from .models import Questions, UpDownVotesQuestion, UpDownVotesAnswer, Answers, SubAnswers
 
@@ -40,12 +41,24 @@ def yeni_soru(request):
         form = NewQuestion(request.POST)
         if form.is_valid():
             temiz = form.cleaned_data
+            tags = request.POST['etiket']
             data = Questions(title=temiz['title'], user_id=request.user)
             data.save()
+            for i in tags.split(','):
+                tag = Tags.objects.filter(tag=i.lower())
+                if tag.count():
+                    data.tags.add(tag[0])
+                else:
+                    tag = Tags(tag=i.lower())
+                    tag.save()
+                    data.tags.add(tag)                    
             return HttpResponseRedirect('/')
     else:
         form = NewQuestion()
         tags = Tags.objects.all()
+        a = []
+        for i in tags:
+            a.append(i.tag)
         return render(request, 'newquestion.html', locals())
 
 
@@ -115,6 +128,7 @@ def reply(request, number, sub):
             return HttpResponseRedirect("/question/{}".format(number))
     else:
         form = AnswerForm()
+        question = Questions.objects.get(id=number)        
         return render(request, 'answer.html', locals())
 
 
@@ -132,3 +146,16 @@ def sign(request):
     else:
         form = SignForm()
         return render(request, 'new-account.html', locals())
+
+
+@login_required
+def profil(request, user):
+    user = User.objects.get(id=user)
+    question = Questions.objects.filter(user_id=user)
+    answer = Answers.objects.filter(user_id=user)
+    return render(request, "profil.html", locals())
+
+def search(request):
+    words = request.GET['inputAra']
+    results = Questions.objects.filter(Q(title__icontains=words) | Q(tags__tag__icontains=words))
+    return render(request, "search.html", locals())

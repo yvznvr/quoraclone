@@ -1,21 +1,38 @@
 
 {% extends 'base.html' %}
 
+{% block autocomplate %}
+
+<datalist id="suggestions">
+    {% for i in tags %}
+        <option value={{i}}>        
+    {% endfor %}
+</datalist>
+
+<script>
+    $(function() {
+      $("#etiket").tags().autofill({
+        data: {{a|safe}}
+      });
+    });
+</script>
+{% endblock %}	
+
 {% block session %}
 {% if request.user.is_authenticated %}
 <li class="navbar-right nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">{{request.user}}</a>
+    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>{{request.user}}</a>
 
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="/newquestion">Yeni Soru</a>
-        <a class="dropdown-item" href="#">Ayarlar</a>
-        <a class="dropdown-item" href="/logout">Sistemden Çıkış</a>
+        <a class="dropdown-item" href="/newquestion"><i class="fa fa-question-circle" aria-hidden="true"></i>Yeni Soru</a>
+        <a class="dropdown-item" href="/profil/{{request.user.id}}"><i class="fa fa-cog" aria-hidden="true"></i>Profil</a>
+        <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Çıkış</a>
     </div>
 </li>
 
 {% else %}
-<a class="navbar-brand" href="/new-account">Üye Ol</a>
-<a class="navbar-brand" href="/login">Üye Girişi</a>
+<a class="navbar-brand" href="/new-account"><i class="fa fa-user-plus" aria-hidden="true"></i>Üye Ol</a>
+<a class="navbar-brand" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Üye Girişi</a>
 {% endif %}
 {% endblock %}
 
@@ -28,19 +45,19 @@
         {% endfor %}
     </datalist>
     <div class="container">
-        <h2>Ask Me</h2>
+        <h2>Soru Sor</h2>
             <div class="form-group">
-            <label for="question">What is your question?:</label>
-            <input type="question" class="form-control" id="id_title" placeholder="Start your question with What,How,or Why" name="title">
+            <label for="question">Sorunu buraya yazabilirsin:</label>
+            <input type="question" class="form-control" id="id_title" placeholder="Soruna, nasıl,neden,ne gibi kelimelerle başlayabilirsin." name="title">
             </div>
             <div class="form-group">
             <label for="etiket">Etiket:</label>
-            <input type="etiket" class="form-control" id="etiket" placeholder="Enter Etiket" name="etiket">
+            <input type="etiket" class="form-control" id="etiket" placeholder="Etiket seçin" name="etiket">
             </div>
             
         <div class="modal-footer">
             <input type="hidden" name="isEmpty" value="">
-            <button type="input" name="submit" value="newAccount" class="btn btn-success btn-icon"> Send </button>
+            <button type="input" name="submit" value="newAccount" class="btn btn-success btn-icon"> <i class="fa fa-share-square-o" aria-hidden="true"></i>Gönder </button>
         </div>
     </div>
 </form>

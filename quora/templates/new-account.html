@@ -3,18 +3,18 @@
 {% block session %}
 {% if request.user.is_authenticated %}
 <li class="navbar-right nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">{{request.user}}</a>
+    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>{{request.user}}</a>
 
-    <div class="dropdown-menu">
-        <a class="dropdown-item" href="/newquestion">Yeni Soru</a>
-        <a class="dropdown-item" href="#">Ayarlar</a>
-        <a class="dropdown-item" href="/logout">Sistemden Çıkış</a>
+    <div class="dropdown-menu ">
+        <a class="dropdown-item" href="/newquestion"><i class="fa fa-question-circle" aria-hidden="true"></i>Yeni Soru</a>
+        <a class="dropdown-item" href="/profil/{{request.user.id}}"><i class="fa fa-cog" aria-hidden="true"></i>Profil</a>
+        <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Çıkış</a>
     </div>
 </li>
 
 {% else %}
-<a class="navbar-brand" href="/new-account">Üye Ol</a>
-<a class="navbar-brand" href="/login">Üye Girişi</a>
+<a class="navbar-brand" href="/new-account"><i class="fa fa-user-plus" aria-hidden="true"></i>Üye Ol</a>
+<a class="navbar-brand" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Üye Girişi</a>
 {% endif %}
 {% endblock %}
 
@@ -22,27 +22,27 @@
 <form method="post">
     {% csrf_token %}
     <div class="container">
-            <h2>New Account</h2>
+            <h2>Yeni Üyelik</h2>
             <div class="form-group">
-                <label for="email">Username:</label>
+                <label for="email"><i class="fa fa-user" aria-hidden="true"></i>Kullanıcı Adı:</label>
                 <input name="username" class="form-control" id="id_username" required="" type="text">
-                <span class="help-block">Choose a username for your new account.</span>
+                <span class="help-block">Yeni üyelik için bir kullanıcı adı giriniz.</span>
             </div>
             <div class="form-group">
-                <label for="pwd">Password:</label>
+                <label for="pwd"><i class="fa fa-key" aria-hidden="true"></i>Şifre:</label>
                 <input name="password" class="form-control" id="id_password" required="" type="password">
-                <span class="help-block">Choose a password for your new account.</span>
+                <span class="help-block">Yeni üyelik için bir şifre giriniz.</span>
             </div>
             <div class="form-group">
-                <label for="pwd">Email:</label>
+                <label for="pwd"><i class="fa fa-envelope" aria-hidden="true"></i>Eposta:</label>
                 <input name="mail" class="form-control" id="id_mail" required="" type="email">
-                <span class="help-block">Choose a mail for your new account.</span>
+                <span class="help-block">Yeni üyelik için bir eposta giriniz.</span>
             </div>
                     
                     
             <div class="modal-footer">
                 <input type="hidden" name="isEmpty" value="">
-                <button type="input" name="submit" value="newAccount" class="btn btn-success btn-icon"> Create My Account</button>
+                <button type="input" name="submit" value="newAccount" class="btn btn-success btn-icon"> <i class="fa fa-user-plus" aria-hidden="true"></i>Üyeliğimi oluştur</button>
             </div>           
     </div>
 </form>

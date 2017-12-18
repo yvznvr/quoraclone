@@ -8,54 +8,62 @@
     {% endblock %}	
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
 	<!-- kendi css dosyam -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/> 
- 
-	</head>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}"> 
+  <script src="{% static 'js/tags.js' %}"></script>
+  <script src="{% static 'js/autofill.js' %}"></script>
+  
+  {% block autocomplate %}
+  {% endblock %}	
+
+</head>
   
   <body>
 
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand" href="/">QuoraClone</a>
+		<a class="navbar-brand" href="/"><i class="fa fa-quora" aria-hidden="true"></i>uoraClone</a>
   
-		<form class="form-inline" action="/action_page.php">
-			<input class="form-control" type="text" placeholder="Search">
-			<button class="btn btn-success" type="submit">Search</button>
+		<form method="GET" class="form-inline " action="{% url 'search' %}" >
+		
+			<input class="form-control " name="inputAra" type="search" placeholder="Ara...">
+			<button class="btn btn-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i>Ara</button>
 		</form>
 
-		<!-- Links -->
-	<ul class="navbar-nav">
-	
 		
+			
+		<ul class="navbar-nav ml-auto">
+    
+    {% if request.user.is_authenticated %}
+      
 		<!-- Dropdown -->
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> Bildirimler</a>
+			<a class="nav-link dropdown-toggle " href="#" id="navbardrop" data-toggle="dropdown"> <i class="fa fa-bell" aria-hidden="true"></i>Bildirimler</a>
       
-		<div class="dropdown-menu">
+		<div class="dropdown-menu ">
 			{% block bildirim %}
 			{% endblock %}
 			<a class="dropdown-item" href="#">Link 1</a>
 			<a class="dropdown-item" href="#">Link 2</a>
 			<a class="dropdown-item" href="#">Link 3</a>
 		</div>
-		</li>	
+    </li>	
+    {% endif%}
 		
-	 </ul>
-			
-		<ul class="navbar-nav ml-auto">
+		
 		{% block session %}
-			<li class="navbar-right nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> Kullanıcı Adı</a>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> <i class="fa fa-user" aria-hidden="true"></i>Kullanıcı Adı</a>
       
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">login</a>
-					<a class="dropdown-item" href="#">settings</a>
-					<a class="dropdown-item" href="#">logout</a>
+				
+					<a class="dropdown-item" href="#"><i class="fa fa-question-circle" aria-hidden="true"></i>login</a>
+					<a class="dropdown-item" href="#"><i class="fa fa-cog" aria-hidden="true"></i>settings</a>
+					<a class="dropdown-item" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i>logout</a>
 				</div>
 			</li>
 		{% endblock %}
@@ -97,8 +105,8 @@
           <h6>Numara</h6>
           <ul class="list-unstyled">
             <li>313979</li>
-            <li>333333</li>
-            <li>333333</li>
+            <li>357398</li>
+            <li>357402</li>
           </ul>
       </div>
       <div class="col-md-3 col-sm-6">

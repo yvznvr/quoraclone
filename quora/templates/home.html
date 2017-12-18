@@ -4,24 +4,24 @@
 {% block session %}
 {% if request.user.is_authenticated %}
 <li class="navbar-right nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">{{request.user}}</a>
+    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>{{request.user}}</a>
 
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="/newquestion">Yeni Soru</a>
-        <a class="dropdown-item" href="#">Ayarlar</a>
-        <a class="dropdown-item" href="/logout">Sistemden Çıkış</a>
+        <a class="dropdown-item" href="/newquestion"><i class="fa fa-question-circle" aria-hidden="true"></i>Yeni Soru</a>
+        <a class="dropdown-item" href="/profil/{{request.user.id}}"><i class="fa fa-cog" aria-hidden="true"></i>Profil</a>
+        <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Çıkış</a>
     </div>
 </li>
 
 {% else %}
-<a class="navbar-brand" href="/new-account">Üye Ol</a>
-<a class="navbar-brand" href="/login">Üye Girişi</a>
+<a class="navbar-brand" href="/new-account"><i class="fa fa-user-plus" aria-hidden="true"></i>Üye Ol</a>
+<a class="navbar-brand" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Üye Girişi</a>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 <div class="container">
-	<h2 class="spacer">Güncel Sorular</h2>
+	<h2 class="spacer"><i class="fa fa-question-circle-o" aria-hidden="true"></i>Güncel Sorular</h2>
 	{% for i in questions %}
 		<div class="card" >
 			<div class="card-header ">
@@ -29,18 +29,22 @@
 				</div>
 					<div class=row>
 						<div class="col-md-1">
-							<img src="http://placehold.it/50x50" width="50" height="50"
+							<img class="image" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" height="60" width="60">
 							<p class="text-center small">
 						</div>
 						<div class="col-md-5">
-							<p>{{i.user_id.first_name}} {{i.user_id.last_name}}</p>                            
+						                          
                             <p>{{i.user_id}}</p>
 							<p class=text-muted small>
 						</div>
 						<div class="col-md-12">
-							<p>Etiketler:</p>
-							<p class="float-right">{{i|updown_question:0}} Down<span class="glyphicon glyphicon-triangle-bottom"></span></p>
-							<p class="float-right">{{i|updown_question:1}} Up<span class="glyphicon glyphicon-triangle-top"></span></p>	
+							<p>Etiketler: 
+								{% for j in i.tags.all %}
+									{{j}},
+								{% endfor %}
+							</p>
+							<p class="float-right">{{i|updown_question:0}} <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></p>
+							<p class="float-right">{{i|updown_question:1}} <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></p>	
 						</div>
 					</div>
         </div>

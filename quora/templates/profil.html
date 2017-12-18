@@ -1,0 +1,153 @@
+	{% extends 'base.html' %}
+	{% load filters %}
+	
+	
+	{% block session %}
+	{% if request.user.is_authenticated %}
+	<li class="navbar-right nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>{{request.user}}</a>
+	
+			<div class="dropdown-menu">
+					<a class="dropdown-item" href="/newquestion"><i class="fa fa-question-circle" aria-hidden="true"></i>Yeni Soru</a>
+					<a class="dropdown-item" href="/profil/{{request.user.id}}"><i class="fa fa-cog" aria-hidden="true"></i>Profil</a>
+					<a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Çıkış</a>
+			</div>
+	</li>
+	
+	{% else %}
+	<a class="navbar-brand" href="/new-account"><i class="fa fa-user-plus" aria-hidden="true"></i>Üye Ol</a>
+	<a class="navbar-brand" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Üye Girişi</a>
+	{% endif %}
+	{% endblock %}
+	
+	{% block content %}
+
+	<div class="col-md-1 profil1">
+		
+<img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="100" height="100"
+<p class="text-center small">
+</div>
+		<div class="col-md-5 profil1">
+			<p>{{user}}</p>
+			<p class=text-muted small>
+		<span>Puan {{user|calculate_score}}</span>
+		</div>
+		<div class="col-md-12 profil1">
+			<p class="pull-right">downsayisi: <span class="glyphicon glyphicon-triangle-bottom"></span></p>
+			<p class="pull-right">upsayisi: <span class="glyphicon glyphicon-triangle-top"></span></p>	
+		
+		</div>
+		{% if request.user == user %}
+	<div class="col-md-3 profi2">
+			<h3 class="pull-right">Ayarlar<span class="glyphicon glyphicon-triangle-bottom"></span></h3>					
+	</div>
+	
+	<!-- ayarlar -->
+	<div class="form-group">
+		<label for="email">Eposta:</label>
+		<input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+
+	</div>
+	<div class="form-group">
+		<label for="pwd">Şifre:</label>
+		<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+
+	</div>
+	<div class="form-group">
+		<label for="pwd">Doğum Tariği:</label>
+		<input type="password" class="form-control" id="pwd" placeholder="Enter date of birth" name="pswd">
+	</div>
+
+	<div class="modal-footer">
+					<input type="hidden" name="isEmpty" value="">
+					<button type="input" name="submit" value="newAccount" class="btn btn-success btn-icon"> Kaydet </button>
+					<button type="button" class="btn btn-default btn-icon" data-dismiss="modal"> İptal</button>
+	</div>
+	{%endif%}
+	
+	<!-- yatay cizgi -->
+	<hr width="100%" color=green size="2">
+	
+				
+
+<div class="col-md-3 profil1">
+	<h3 class="pull-right">Sorularım: <span class="glyphicon glyphicon-triangle-bottom"></span></h3>
+	{% for i in question %}
+	<h3 class="pull-right"><a href="/question/{{i.id}}"> {{i.title}} </a> <span class="glyphicon glyphicon-triangle-top"></span></h3>
+	{% endfor %}
+</div>	
+
+<div class="col-md-3 profil1">
+	<h3 class="pull-right">Cevaplarım: <span class="glyphicon glyphicon-triangle-bottom"></span></h3>
+	{% for i in answer %}
+	<h3 class="pull-right"><a href="/question/{{i.question_id.id}}"> {{i.question_id}} </a> <span class="glyphicon glyphicon-triangle-top"></span></h3>
+	{% endfor %}
+</div>	
+
+	{% endblock %}
+							
+							
+	<footer class="mainfooter" role="contentinfo">
+
+  <div class="footer-middle">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+          <h6>Ad</h6>
+			<ul class="list-unstyled">
+				<li>
+                    Hakan Murat<br>
+					Yavuz<br>
+					Onur<br>
+				</li>
+				
+			</ul>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+          <h6>Soyad</h6>
+          <ul class="list-unstyled">
+      
+            <li>Aksüt</li>
+            <li>Ünver</li>
+            <li>Çevik</li>
+          </ul>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+          <h6>Numara</h6>
+          <ul class="list-unstyled">
+            <li>313979</li>
+            <li>333333</li>
+            <li>333333</li>
+          </ul>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <!--Column1-->
+          <h6>Öğrenim</h6>
+          <ul class="list-unstyled">
+            <li>1.öğretim</li>
+            <li>1.öğretim</li>
+            <li>1.öğretim</li>
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <!--Footer Bottom-->
+          <p class="text-xs-center">Veritabanı Yönetim Sistemleri 2017-2018 Dönem Ödevi - Yrd.Doç.Dr.Güzin Ulutaş</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+  </body>
+  
+  </html>

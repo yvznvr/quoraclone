@@ -4,18 +4,18 @@
 {% block session %}
 {% if request.user.is_authenticated %}
 <li class="navbar-right nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">{{request.user}}</a>
+    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>{{request.user}}</a>
 
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="/newquestion">Yeni Soru</a>
-        <a class="dropdown-item" href="#">Ayarlar</a>
-        <a class="dropdown-item" href="/logout">Sistemden Çıkış</a>
+        <a class="dropdown-item" href="/newquestion"><i class="fa fa-question-circle" aria-hidden="true"></i>Yeni Soru</a>
+        <a class="dropdown-item" href="/profil/{{request.user.id}}"><i class="fa fa-cog" aria-hidden="true"></i>Profil</a>
+        <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Çıkış</a>
     </div>
 </li>
 
 {% else %}
-<a class="navbar-brand" href="/new-account">Üye Ol</a>
-<a class="navbar-brand" href="/login">Üye Girişi</a>
+<a class="navbar-brand" href="/new-account"><i class="fa fa-user-plus" aria-hidden="true"></i>Üye Ol</a>
+<a class="navbar-brand" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Üye Girişi</a>
 {% endif %}
 {% endblock %}
 
@@ -24,15 +24,16 @@
 <form method="post">
 {% csrf_token %}
 <div class="container">
-        <h2>SORU: JAVA MI C++ MI ?</h2>
+        <h2>{{question.title}}</h2>
         <div class="form-group">
-            <label for="comment">Cevap:</label>
             <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
             <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
             <textarea cols="40" id="id_context" name="context" rows="10" required="" data-processed="0" data-config="{&quot;filebrowserWindowHeight&quot;: 725, &quot;skin&quot;: &quot;moono-lisa&quot;, &quot;filebrowserWindowWidth&quot;: 940, &quot;language&quot;: &quot;tr-tr&quot;, &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;width&quot;: 835, &quot;height&quot;: 291, &quot;toolbar&quot;: &quot;Full&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]]}" data-external-plugin-resources="[]" data-id="id_context" data-type="ckeditortype"></textarea>
         </div>
 </div>
-        <input type="submit" value="Onayla">
+         <div class="container">
+		 <button type="submit" class="btn btn-primary"><i class="fa fa-share-square-o" aria-hidden="true"></i>Cevapla</button>      
+      </div>
 </form>
 
 {% endblock %}

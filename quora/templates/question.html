@@ -7,9 +7,9 @@
 <li class="navbar-right nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">{{request.user}}</a>
 
-    <div class="dropdown-menu">
+    <div class="dropdown-menu ">
         <a class="dropdown-item" href="/newquestion">Yeni Soru</a>
-        <a class="dropdown-item" href="#">Ayarlar</a>
+        <a class="dropdown-item" href="/profil/{{request.user.id}}">Profil</a>
         <a class="dropdown-item" href="/logout">Sistemden Çıkış</a>
     </div>
 </li>
@@ -31,61 +31,93 @@
         
         <div class="card-block">
 
-            <div class=media>
-            <img src="http://placehold.it/50x50" class="image" width="50" height="50">
-            </div>
-            
+            <div class="media">
+			<img class="image" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" height="60" width="60">
+						<div class="row">
+						<div class="col-md-12">
+						
+						<b>Username </b>{{question.user_id}}</p>
+						 <p class=text-muted small>
+                            <span>Puan {{question.user_id|calculate_score}}</span></p>
+						
+						</div>
+						</div>
+
+			</div>
             <div class="media-body">
-                    <p>{{question.user_id.first_name}} {{question.user_id.last_name}}</p>
-                    <p><b>Username </b>{{question.user_id}}</p>
-                    <p class=text-muted small>
-                    <span>Puan</span></p>
+			
+          
                     <p>Etiketler: 
+                            {% for j in question.tags.all %}
+                            {{j}},
+                        {% endfor %}
+                    </p>
                     {% if request.user.is_authenticated %}    
-                    <span class="float-right">{{down}} <a href="/qud/0/{{question.id}}">Down</a> {{up}} <a href="/qud/1/{{question.id}}">Up</a> </span></p>
-                    <a href="/newanswer/{{question.id}}/0">Cevapla</a>
+                    <span class="float-right">{{up}} <a href="/qud/1/{{question.id}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>{{down}} <a href="/qud/0/{{question.id}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>  </span></p>
+                    <a href="/newanswer/{{question.id}}/0" class="btn btn-info btn-sm" role="button"><i class="fa fa-share-square" aria-hidden="true"></i>Cevapla</a>
+                    {% else %}
+                    <span class="float-right">{{up}} <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>{{down}} <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>  </span></p>                    
                     {% endif %}
 
                     {% for ans, sub_ans in ans_list.items %}
                     <div class="card">
-                        <div class=media>
-                        <img src="http://placehold.it/50x50" class="image" width="50" height="50">
+                        <div class="media">
+						<img class="image" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" height="60" width="60">
+						<div class="row">
+						<div class="col-md-12">
+						<p>{{ans.user_id}}</p>
+						 <p class=text-muted small>
+                            <span>Puan {{ans.user_id|calculate_score}}</span></p>
+						</div>
+						</div>
                         </div>
+						
+			
                         <div class="media-body">
-                            <p>{{ans.user_id.first_name}} {{ans.user_id.last_name}}</p>                                
-                            <p>{{ans.user_id}}</p>
-                            <p>{{ans|safe}}</p>
-                            <p class=text-muted small>
-                            <span>Puan</span></p>
+						
+						 <div class="question-answer"><p>{{ans|safe}}</p></div>
+						                    
+                           
+                           
+                           
                             {% if request.user.is_authenticated %}            
-                            <span class="float-right">{{ans|updown_ans:0}} <a href="/aud/0/{{ans.id}}">Down</a> {{ans|updown_ans:1}} <a href="/aud/1/{{ans.id}}">Up</a></span></p>
-                            <a href="/newanswer/{{question.id}}/{{ans.id}}">Cevapla</a>
+                            <span class="float-right">{{ans|updown_ans:1}} <a href="/aud/1/{{ans.id}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>{{ans|updown_ans:0}} <a href="/aud/0/{{ans.id}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </span></p>
+                            <a href="/newanswer/{{question.id}}/{{ans.id}}"  class="btn btn-info btn-sm" role="button"><i class="fa fa-share-square" aria-hidden="true"></i>Cevapla</a>
+                            {%else%}
+                            <span class="float-right">{{ans|updown_ans:1}} <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>{{ans|updown_ans:0}}<i class="fa fa-thumbs-o-down" aria-hidden="true"></i> </span></p>
                             {%endif%}
                             
                             {% for j in sub_ans %}
-                            <div class="card">
-                                <div class=media>
-                                <img src="http://placehold.it/50x50" class="image" width="50" height="50">
-                                </div>
-                            
-                            
-                                <div class="media-body">
-                                <p>{{j.subanswer_id.user_id.first_name}} {{j.subanswer_id.user_id.last_name}}</p>                                
-                                <p>{{j.subanswer_id.user_id}}</p>
-                                <p>{{j|safe}}</p>
-                                <p class=text-muted small>
-                                <span>Puan</span></p>
+                           
+                                <div class="media">
+								<img class="image" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" height="60" width="60">
+								<div class="row">
+								<div class="col-md-12">
+								<p>{{j.subanswer_id.user_id}}</p>
+								<p class=text-muted small>
+								<span>Puan {{j.subanswer_id.user_id|calculate_score}}</span></p>
+								</div>
+								</div>
+		                         
+								</div>
+
+                                <div class="media-body">	
+
+                              <div class="question-answer"><p>{{j|safe}}</p></div>
+                                
+								{% if request.user.is_authenticated %}            
+                            <span class="float-right">{{ans|updown_ans:1}} <a href="/aud/1/{{ans.id}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></i></a>{{ans|updown_ans:0}} <a href="/aud/0/{{ans.id}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </span></p>
+                            {%endif%}
                     
                                 </div>
-                            </div>
+                            
                             {% endfor %}
                         </div>
                     </div>
                     {% endfor %}
             </div>
         </div>
-                            
-                            
+                   
     </div>
 		
 </div>

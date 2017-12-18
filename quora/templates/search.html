@@ -19,25 +19,8 @@
 {% endblock %}
 
 {% block content %}
-<form action='/login/' method="post">
-    {% csrf_token %}
-    <div class="container">
-        <h2>Giriş</h2>
-          <div class="form-group">
-            <label for="email">Kullanıcı Adı:</label>
-            <input type="text" class="form-control" id="id_kulad" name="kulad">
-          </div>
-          <div class="form-group">
-            <label for="pwd">Şifre:</label>
-            <input type="password" class="form-control" id="id_parola" name="parola">
-          </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" name="remember"> Beni hatırla
-            </label>
-          </div>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in" aria-hidden="true"></i>Giriş</button>      
-      </div>
-</form>
 
+{% for i in results %}
+    <h3><a href="/question/{{i.id}}">{{i.title}}</a></h3>
+{% endfor %}
 {% endblock %}
