@@ -24,65 +24,41 @@
 
 	<div class="col-md-1 profil1">
 		
-<img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="100" height="100"
-<p class="text-center small">
-</div>
-		<div class="col-md-5 profil1">
-			<p>{{user}}</p>
+		<img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="100" height="100"
+		<p class="text-center small">
+	</div>
+	<div class="col-md-5 profil1">
+			<p><i class="fa fa-user" aria-hidden="true"></i> Kullanıcı Adı: {{user}}</p>
+			<p><i class="fa fa-user" aria-hidden="true"></i> İsim: {{user.first_name}}</p>
+			<p><i class="fa fa-user" aria-hidden="true"></i> Soyisim: {{user.last_name}}</p>
+			<p><i class="fa fa-user" aria-hidden="true"></i> Mail: {{user.email}}</p>			
+			
 			<p class=text-muted small>
-		<span>Puan {{user|calculate_score}}</span>
-		</div>
-		<div class="col-md-12 profil1">
-			<p class="pull-right">downsayisi: <span class="glyphicon glyphicon-triangle-bottom"></span></p>
-			<p class="pull-right">upsayisi: <span class="glyphicon glyphicon-triangle-top"></span></p>	
-		
-		</div>
-		{% if request.user == user %}
-	<div class="col-md-3 profi2">
-			<h3 class="pull-right">Ayarlar<span class="glyphicon glyphicon-triangle-bottom"></span></h3>					
+		<span><i class="fa fa-star-o" aria-hidden="true"></i> Puan {{user|calculate_score}}</span>
 	</div>
-	
-	<!-- ayarlar -->
-	<div class="form-group">
-		<label for="email">Eposta:</label>
-		<input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-
-	</div>
-	<div class="form-group">
-		<label for="pwd">Şifre:</label>
-		<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
-
-	</div>
-	<div class="form-group">
-		<label for="pwd">Doğum Tariği:</label>
-		<input type="password" class="form-control" id="pwd" placeholder="Enter date of birth" name="pswd">
-	</div>
-
-	<div class="modal-footer">
-					<input type="hidden" name="isEmpty" value="">
-					<button type="input" name="submit" value="newAccount" class="btn btn-success btn-icon"> Kaydet </button>
-					<button type="button" class="btn btn-default btn-icon" data-dismiss="modal"> İptal</button>
-	</div>
-	{%endif%}
+	<div class="col-md-12 profil1">
 	
 	<!-- yatay cizgi -->
 	<hr width="100%" color=green size="2">
 	
 				
 
-<div class="col-md-3 profil1">
-	<h3 class="pull-right">Sorularım: <span class="glyphicon glyphicon-triangle-bottom"></span></h3>
-	{% for i in question %}
-	<h3 class="pull-right"><a href="/question/{{i.id}}"> {{i.title}} </a> <span class="glyphicon glyphicon-triangle-top"></span></h3>
-	{% endfor %}
-</div>	
-
-<div class="col-md-3 profil1">
-	<h3 class="pull-right">Cevaplarım: <span class="glyphicon glyphicon-triangle-bottom"></span></h3>
-	{% for i in answer %}
-	<h3 class="pull-right"><a href="/question/{{i.question_id.id}}"> {{i.question_id}} </a> <span class="glyphicon glyphicon-triangle-top"></span></h3>
-	{% endfor %}
-</div>	
+	<div class="col-md-3 profil2">
+		<h3 ><i class="fa fa-question-circle" aria-hidden="true"></i>Sorularım: <span class="glyphicon glyphicon-triangle-bottom"></span></h3>
+		
+		{% for i in question %}
+		<p ><a href="/question/{{i.id}}"> {{i.title}} </a> <span class="glyphicon glyphicon-triangle-top"></span></p>
+		{% endfor %}
+	</div>	
+		
+	<div class="col-md-3 profil2">
+		<h3 ><i class="fa fa-reply-all" aria-hidden="true"></i>Cevaplarım: <span class="glyphicon glyphicon-triangle-bottom"></span></h3>
+		
+		{% for i in answer %}
+		<p ><a href="/question/{{i.question_id.id}}"> Soru Başlığı: {{i.question_id}} <br/> {{i.context|safe}}</a> <span class="glyphicon glyphicon-triangle-top"></span></p>
+		<hr width="100%" color=green size="2">
+		{% endfor %}
+	</div>	
 
 	{% endblock %}
 							

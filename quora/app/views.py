@@ -138,6 +138,8 @@ def sign(request):
         if form.is_valid():
             temiz = form.cleaned_data
             user = User.objects.create_user(username=temiz['username'],
+                                            first_name=temiz['first_name'],
+                                            last_name=temiz['last_name'],                                            
                                             email=temiz['mail'],
                                             password=temiz['password'])
             user.save()

@@ -27,7 +27,7 @@
 
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<a class="navbar-brand" href="/"><i class="fa fa-quora" aria-hidden="true"></i>uoraClone</a>
-  
+
 		<form method="GET" class="form-inline " action="{% url 'search' %}" >
 		
 			<input class="form-control " name="inputAra" type="search" placeholder="Ara...">
@@ -41,8 +41,6 @@
     {% if request.user.is_authenticated %}
       
 		<!-- Dropdown -->
-		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle " href="#" id="navbardrop" data-toggle="dropdown"> <i class="fa fa-bell" aria-hidden="true"></i>Bildirimler</a>
       
 		<div class="dropdown-menu ">
 			{% block bildirim %}

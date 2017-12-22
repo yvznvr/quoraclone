@@ -20,6 +20,8 @@ class AnswerForm(forms.Form):
 class SignForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+    first_name = forms.CharField()
+    last_name = forms.CharField()    
     mail = forms.CharField(widget=forms.EmailInput)
 
     
