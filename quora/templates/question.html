@@ -106,7 +106,7 @@
                               <div class="question-answer"><p>{{j|safe}}</p></div>
                                 
 								{% if request.user.is_authenticated %}            
-                            <span class="float-right">{{ans|updown_ans:1}} <a href="/aud/1/{{ans.id}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></i></a>{{ans|updown_ans:0}} <a href="/aud/0/{{ans.id}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </span></p>
+                            <span class="float-right">{{j.subanswer_id|updown_ans:1}} <a href="/aud/1/{{j.subanswer_id.id}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></i></a>{{j.subanswer_id|updown_ans:0}} <a href="/aud/0/{{j.subanswer_id.id}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </span></p>
                             {%endif%}
                     
                                 </div>
